@@ -34,7 +34,7 @@ def main():
 
     # print statement and buyer tally once all tickets are sold
     print(f"All tickets sold! Total buyers: {buyers}")
-    print('Goodbye')
+    print('Bye')
 
 # start program by calling main
 main()
