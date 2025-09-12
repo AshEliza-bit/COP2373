@@ -2,7 +2,7 @@
 def purchases(tickets_left):
     # prompt user for number of tickets they'd like to buy
     num = int(input("Welcome to the Cinema Ticket Pre-Sale! How many tickets would you like to buy? tickets are limited to maximum 4 per customer: "))
-    # make sure no buyer purchases more than 4 or the remaining number of tickets
+    # make sure no customer purchases more than 4 or the remaining number of tickets
     if 1 <= num <= 4 and num <= tickets_left:
         # return the number of tickets to buy
         return num
@@ -19,21 +19,21 @@ def show_remain(tickets_left):
 
 # main program
 def main():
-    # initialize variables, starting with 10 tickets and no buyers
+    # initialize variables, starting with 10 tickets and no customers
     tickets_left = 10
-    buyers = 0
+    customers = 0
 
-    # continue selling tickets until all purchased, and update the number of buyers after each purchase
+    # continue selling tickets until all purchased, and update the number of customers after each purchase
     while tickets_left > 0:
         purchased = purchases(tickets_left)
         if purchased > 0:
             tickets_left -= purchased
-            buyers += 1
+            customers += 1
             #show how many tickets are left
             show_remain(tickets_left)
 
     # print statement and buyer tally once all tickets are sold
-    print(f"All tickets sold! Total buyers: {buyers}")
+    print(f"All tickets sold! Total buyers: {customers}")
     print('Bye')
 
 # start program by calling main
