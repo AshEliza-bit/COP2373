@@ -19,8 +19,8 @@ def show_remain(tickets_left):
 
 # main program
 def main():
-    # initialize variables, starting with 20 tickets and no buyers
-    tickets_left = 20
+    # initialize variables, starting with 10 tickets and no buyers
+    tickets_left = 10
     buyers = 0
 
     # continue selling tickets until all purchased, and update the number of buyers after each purchase
