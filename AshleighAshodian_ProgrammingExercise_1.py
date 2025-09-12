@@ -1,7 +1,7 @@
 # Function 1 will keep track of the tickets sold
 def purchases(tickets_left):
     # prompt user for number of tickets they'd like to buy
-    num = int(input("Welcome to the Cinema Ticket Pre-Sale! Please enter tickets to buy; up to 4 tickets per buyer: "))
+    num = int(input("Welcome to the Cinema Ticket Pre-Sale! How many tickets would you like to buy? tickets are limited to maximum 4 per customer: "))
     # make sure no buyer purchases more than 4 or the remaining number of tickets
     if 1 <= num <= 4 and num <= tickets_left:
         # return the number of tickets to buy
