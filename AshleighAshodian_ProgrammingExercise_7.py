@@ -2,7 +2,7 @@ import re
 
 def get_paragraph(): #prompts the user to enter a paragraph of their desired length
     paragraph = input("Please enter a paragraph: ")
-    return paragraph #
+    return paragraph #user input
 
 def count_sentences(paragraph): #keeps track of how many sentences there are
     pat = r'[A-Z0-9].*?[.!?](?= [A-Z0-9]|$)' #the pattern from lesson 7.4 tweaked to also include sentences that start with numbers
