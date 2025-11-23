@@ -1,7 +1,7 @@
 import numpy as np
 
 data = np.genfromtxt(
-    "students.csv",          # your file name
+    "grades.csv",          # your file name
     delimiter=",",
     dtype=None,              # let NumPy figure out types
     encoding="utf-8",
