@@ -1,13 +1,13 @@
 import numpy as np
 
-#compute statistics for a column of exam scores
+#computes the statistics for a column of exam scores (rounding to a decimal point for neatness)
 def compute_stats(scores):
     return {
-        "mean": np.mean(scores),
-        "median": np.median(scores),
-        "stddev": np.std(scores),
-        "min": np.min(scores),
-        "max": np.max(scores)
+        "mean": round(float(np.mean(scores)), 2),
+        "median": round(float(np.median(scores)), 2),
+        "standard deviation": round(float(np.std(scores)), 2),
+        "min": round(float(np.min(scores)), 2),
+        "max": round(float(np.max(scores)), 2)
     }
 
 #counts passes and failures
@@ -16,53 +16,53 @@ def pass_fail(scores):
     failed = np.sum(scores < 60)
     return passed, failed
 
-#main program
-
-data = np.genfromtxt(
+#main program below
+def main():
+    data = np.genfromtxt(
     "grades.csv",
     delimiter=",",
     dtype=None,
     encoding="utf-8",
     names=True
-)
+    )
+    #prints first few rows to show data structure
+    print("First few rows of dataset:")
+    print(data[:5])
 
-print("First few rows of dataset:")
-print(data[:5])
+    #extract exam columns
+    exam1 = data["Exam_1"]
+    exam2 = data["Exam_2"]
+    exam3 = data["Exam_3"]
 
-#extract exam columns
-exam1 = data["exam1"]
-exam2 = data["exam2"]
-exam3 = data["exam3"]
+    #statistics for each exam
+    exam1_stats = compute_stats(exam1)
+    exam2_stats = compute_stats(exam2)
+    exam3_stats = compute_stats(exam3)
 
-exam1_stats = compute_stats(exam1)
-exam2_stats = compute_stats(exam2)
-exam3_stats = compute_stats(exam3)
+    print("Exam 1 stats:", exam1_stats)
+    print("Exam 2 stats:", exam2_stats)
+    print("Exam 3 stats:", exam3_stats)
 
-print("Exam 1 stats:", exam1_stats)
-print("Exam 2 stats:", exam2_stats)
-print("Exam 3 stats:", exam3_stats)
+    #overall statistics
+    all_scores = np.concatenate([exam1, exam2, exam3])
+    overall_stats = compute_stats(all_scores)
+    print("Overall statistics of all exams:", overall_stats)
 
-#overal stats
-all_scores = np.concatenate([exam1, exam2, exam3])
+    #pass/fail per exam
+    p1, f1 = pass_fail(exam1)
+    p2, f2 = pass_fail(exam2)
+    p3, f3 = pass_fail(exam3)
 
-overall_stats = compute_stats(all_scores)
+    print(f"Exam 1 - Passes: {p1}, Failed: {f1}")
+    print(f"Exam 2 - Passes: {p2}, Failed: {f2}")
+    print(f"Exam 3 - Passes: {p3}, Failed: {f3}")
 
-print("Overall statistics of all exams:", overall_stats)
+    #pass percentage overall
 
-#pass/fail per exam
-p1, f1 = pass_fail(exam1)
-p2, f2 = pass_fail(exam2)
-p3, f3 = pass_fail(exam3)
+    total_scores = len(all_scores)
+    total_passes = np.sum(all_scores >= 60)
+    overall_pass_percent = (total_passes / total_scores) * 100
 
-print(f"Exam 1 - Passes: {p1}, Failed: {f1}")
-print(f"Exam 2 - Passes: {p2}, Failed: {f2}")
-print(f"Exam 3 - Passes: {p3}, Failed: {f3}")
+    print(f"Overall Pass Percentage: {overall_pass_percent:.2f}%")
 
-#pass percentage overall
-
-total_scores = len(all_scores)
-total_passes = np.sum(all_scores >= 60)
-overall_pass_percent = (total_passes / total_scores) * 100
-
-print(f"Overall Pass Percentage: {overall_pass_percent:.2f}%")
-
+main()
