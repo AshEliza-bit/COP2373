@@ -18,6 +18,7 @@ def pass_fail(scores):
 
 #main program below
 def main():
+    #brings in the csv
     data = np.genfromtxt(
     "grades.csv",
     delimiter=",",
@@ -25,6 +26,7 @@ def main():
     encoding="utf-8",
     names=True
     )
+
     #prints first few rows to show data structure
     print("First few rows of dataset:")
     print(data[:5])
