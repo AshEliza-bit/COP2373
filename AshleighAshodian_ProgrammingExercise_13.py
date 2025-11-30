@@ -15,7 +15,7 @@ def create_database():
     conn.close()
 
 
-#insert 2023 data
+#Insert 2023 data if it doesn't already exist
 def year_2023_data():
     conn = sqlite3.connect("population_AA.db")
     cur = conn.cursor()
@@ -33,13 +33,20 @@ def year_2023_data():
         ("Tampa", 2023, 564000),
     ]
 
-    cur.executemany(
-        "INSERT INTO population (city, year, population) VALUES (?, ?, ?)", cities_2023
-    )
+    #check for existing 2023 entries
+    for city, year, pop in cities_2023:
+        cur.execute(
+            "SELECT COUNT(*) FROM population WHERE city=? AND year=?", (city, year)
+        )
+        if cur.fetchone()[0] == 0:
+            cur.execute(
+                "INSERT INTO population (city, year, population) VALUES (?, ?, ?)",
+                (city, year, pop)
+            )
 
     conn.commit()
     conn.close()
-    return cities_2023  # returns the cities and their respective populations
+    return cities_2023  #returns the cities and their populations
 
 
 #simulate population growth for 20 years
@@ -105,10 +112,9 @@ def show_pop_plot():
 #main program
 def main():
     create_database()
-    cities_2023 = year_2023_data()      #Insert 2023 data and get city list
+    cities_2023 = year_2023_data()      #insert 2023 data and get city list
     simulate_pop(cities_2023)    #simulate the next 20 years
-    show_pop_plot()              #Display plot for the city the user selects
-
+    show_pop_plot()              #display plot for the city the user selects
 
 if __name__ == "__main__":
     main()
